@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iman sebagai Dasar Kehidupan Seorang Muslim - Kelas VII</title>
+<style>
+:root{
+  --primary:#176b57; --primary2:#239b7a; --soft:#e9f7f2; --accent:#f4b942;
+  --danger:#d9534f; --text:#20312c; --muted:#65756f; --white:#fff; --bg:#f5f8f7;
+  --shadow:0 8px 25px rgba(23,107,87,.12); --radius:18px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+header{background:linear-gradient(135deg,var(--primary),#0d4d3e);color:white;padding:32px 18px 70px}
+.container{max-width:1050px;margin:auto;padding:0 16px}
+.hero{display:grid;grid-template-columns:1.4fr .8fr;gap:24px;align-items:center}
+.badge{display:inline-block;background:rgba(255,255,255,.16);padding:6px 12px;border-radius:999px;font-size:.85rem}
+h1{font-size:clamp(2rem,5vw,3.3rem);line-height:1.12;margin:14px 0}
+.hero p{font-size:1.05rem;opacity:.92}
+.hero-card{background:white;color:var(--text);padding:22px;border-radius:var(--radius);box-shadow:var(--shadow)}
+.hero-card strong{color:var(--primary);font-size:1.3rem}
+nav{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid #dfe8e5}
+.nav-inner{display:flex;gap:8px;overflow:auto;padding:10px 16px}
+.nav-inner button{white-space:nowrap;border:0;background:transparent;padding:9px 13px;border-radius:10px;color:var(--text);cursor:pointer}
+.nav-inner button:hover{background:var(--soft)}
+main{padding:30px 0 55px}
+section{margin:0 0 34px}
+.section-title{display:flex;align-items:center;gap:10px;margin-bottom:15px}
+.section-title h2{margin:0;font-size:1.65rem}
+.card{background:white;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.icon-card{padding:20px;background:linear-gradient(180deg,#fff,var(--soft));border:1px solid #d8eee7;border-radius:16px}
+.icon{font-size:2rem}
+.case{border-left:6px solid var(--accent)}
+.case h3{margin-top:0}
+.choice{display:block;width:100%;text-align:left;margin:9px 0;padding:13px 15px;border:2px solid #dfe8e5;background:white;border-radius:12px;cursor:pointer;font-size:1rem;color:var(--text)}
+.choice:hover{border-color:var(--primary2);background:var(--soft)}
+.choice.correct{border-color:#279b66;background:#eaf8f0}
+.choice.wrong{border-color:#d9534f;background:#fff0ef}
+.feedback{padding:12px 14px;border-radius:12px;margin-top:10px;background:#f3f6f5;display:none}
+.feedback.show{display:block}
+.progress-wrap{background:#e2ebe8;border-radius:999px;height:12px;overflow:hidden;margin:10px 0 20px}
+.progress{height:100%;width:0;background:linear-gradient(90deg,var(--primary2),var(--accent));transition:.3s}
+.question{border:1px solid #dfe8e5;border-radius:15px;padding:18px;margin:14px 0}
+.question h3{margin-top:0;font-size:1rem}
+input[type=text], textarea{width:100%;padding:12px;border:1px solid #ccd9d5;border-radius:10px;font:inherit}
+textarea{min-height:120px;resize:vertical}
+.btn{border:0;border-radius:12px;padding:12px 17px;background:var(--primary);color:white;font-weight:700;cursor:pointer}
+.btn:hover{background:#0e5646}
+.btn.secondary{background:#e7f2ef;color:var(--primary)}
+.result{display:none;background:linear-gradient(135deg,#e9f7f2,#fff8e8);border:1px solid #cde8df}
+.result.show{display:block}
+.score{font-size:2.2rem;font-weight:800;color:var(--primary)}
+.tip{background:#fff8e8;border-left:5px solid var(--accent);padding:14px;border-radius:10px}
+footer{background:#163b33;color:#dcebe7;padding:25px 0;text-align:center}
+.small{color:var(--muted);font-size:.92rem}
+.checklist label{display:block;padding:10px;border-bottom:1px solid #edf1ef}
+.checklist input{margin-right:10px}
+
+.auth-screen{position:fixed;inset:0;z-index:1000;background:linear-gradient(135deg,#0d4d3e,#239b7a);display:flex;align-items:center;justify-content:center;padding:18px}
+.auth-box{width:min(480px,100%);background:#fff;border-radius:22px;padding:28px;box-shadow:0 20px 60px #062d2580}
+.auth-box h2{margin-top:0;color:var(--primary)}
+.auth-tabs{display:flex;gap:8px;margin:16px 0}
+.auth-tabs button{flex:1;border:1px solid #d8e7e1;padding:11px;border-radius:10px;background:#f3f8f6;cursor:pointer;font-weight:700}
+.auth-tabs button.active{background:var(--primary);color:#fff}
+.auth-field{margin:12px 0}.auth-field label{display:block;font-weight:700;margin-bottom:5px}
+.auth-field input{width:100%;padding:12px;border:1px solid #cbd9d4;border-radius:10px;font:inherit}
+.auth-msg{color:#b42318;min-height:24px;font-size:.92rem}
+.top-tools{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+.dashboard{display:none}
+.dashboard.show{display:block}
+.edit-tools{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.editing{outline:3px dashed var(--accent);outline-offset:4px;background:#fffdf4!important}
+.student-score-card{border:2px solid #cde8df;background:linear-gradient(135deg,#e9f7f2,#fff8e8)}
+.score-history{width:100%;border-collapse:collapse;margin-top:10px}
+.score-history th,.score-history td{border-bottom:1px solid #e1ebe7;padding:9px;text-align:left}
+@media(max-width:760px){.auth-box{padding:20px}}
+
+@media(max-width:760px){
+ .hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr}
+ header{padding-bottom:45px}.card{padding:17px}
+}
+
+<style>
+/* Tambahan khusus menu LKM; gaya fitur lain tetap dipertahankan */
+.lkm-intro{background:linear-gradient(135deg,#e9f7f2,#fff8e8);border:1px solid #cde8df}
+.lkm-block{border:1px solid #dfe8e5;border-radius:14px;padding:18px;margin:16px 0;background:#fff}
+.lkm-block h3{color:var(--primary);margin-top:0}
+.lkm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.lkm-field{margin:10px 0}
+.lkm-field label{display:block;font-weight:650;margin-bottom:5px}
+.lkm-field input,.lkm-field textarea,.lkm-field select{width:100%;padding:10px;border:1px solid #ccd9d5;border-radius:9px;font:inherit}
+.lkm-field textarea{min-height:78px}
+.lkm-table-wrap{overflow-x:auto}
+.lkm-table{width:100%;border-collapse:collapse;margin:10px 0}
+.lkm-table th,.lkm-table td{border:1px solid #d7e3de;padding:9px;text-align:left;vertical-align:top}
+.lkm-table th{background:var(--soft)}
+.lkm-table input,.lkm-table textarea{min-width:130px;width:100%;padding:8px;border:1px solid #ccd9d5;border-radius:7px;font:inherit}
+.lkm-actions{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+.lkm-note{font-size:.92rem;color:var(--muted)}
+@media(max-width:700px){.lkm-grid{grid-template-columns:1fr}.lkm-block{padding:13px}}
+@media print{body *{visibility:hidden}#lkm,#lkm *{visibility:visible}#lkm{position:absolute;left:0;top:0;width:100%;margin:0}#lkm .lkm-actions,#lkm .lkm-intro .small{display:none}.lkm-block{break-inside:avoid;box-shadow:none}}
+</style>
+
+</style>
+</head>
+<body>
+
+<div id="authScreen" class="auth-screen">
+ <div class="auth-box">
+  <span class="badge" style="background:var(--soft);color:var(--primary)">PAI • Kelas VII</span>
+  <h2>🔐 Masuk ke Ruang Belajar</h2>
+  <p class="small">Pilih jenis akun untuk membuka dashboard yang sesuai.</p>
+  <div class="auth-tabs">
+   <button id="teacherTab" class="active" onclick="switchLogin('guru')">👩‍🏫 Login Guru</button>
+   <button id="studentTab" onclick="switchLogin('murid')">🎒 Login Murid</button>
+  </div>
+  <div id="teacherLogin">
+   <div class="auth-field"><label for="teacherUser">Nama pengguna</label><input id="teacherUser" type="text" placeholder="guru"></div>
+   <div class="auth-field"><label for="teacherPass">Kata sandi</label><input id="teacherPass" type="password" placeholder="Masukkan kata sandi"></div>
+   <p class="small">Akun demo offline: pengguna <b>guru</b>, kata sandi <b>guru123</b>.</p>
+  </div>
+  <div id="studentLogin" style="display:none">
+   <div class="auth-field"><label for="studentLoginName">Nama murid</label><input id="studentLoginName" type="text" placeholder="Nama lengkap"></div>
+   <div class="auth-field"><label for="studentClass">Kelas</label><input id="studentClass" type="text" placeholder="Contoh: VII A" value="VII A"></div>
+   <p class="small">Login murid menggunakan nama dan kelas. Tidak memerlukan kata sandi.</p>
+  </div>
+  <button class="btn" style="width:100%" onclick="login()">Masuk</button>
+  <div id="authMsg" class="auth-msg"></div>
+  <p class="small">Catatan: login ini untuk penggunaan lokal/offline pada perangkat yang sama, bukan sistem keamanan akun daring.</p>
+ </div>
+</div>
+
+
+<header>
+  <div class="container hero">
+    <div>
+      <span class="badge">Pendidikan Agama Islam • Kelas VII SMP</span>
+      <h1>Iman sebagai Dasar Kehidupan Seorang Muslim</h1>
+      <p>Belajar iman melalui situasi yang dekat dengan kehidupan siswa: kejujuran, tanggung jawab, pergaulan, media sosial, dan pilihan sehari-hari.</p>
+    </div>
+    <div class="hero-card">
+      <strong>🎯 Misi Belajar</strong>
+      <p>Kenali makna iman, hubungkan dengan perilaku, lalu tentukan sikap yang mencerminkan keimanan dalam kehidupan nyata.</p>
+      <div class="small">Aplikasi pembelajaran • login guru dan murid • dapat dibuka offline</div>
+    </div>
+  </div>
+</header>
+
+<div class="container top-tools">
+ <span id="welcomeLabel" class="small" style="align-self:center"></span>
+ <button id="teacherDashBtn" class="btn secondary" style="display:none" onclick="showDashboard('guru')">👩‍🏫 Dashboard Guru</button>
+ <button id="studentDashBtn" class="btn secondary" style="display:none" onclick="showDashboard('murid')">🎒 Dashboard Murid</button>
+ <button id="logoutBtn" class="btn" onclick="logout()">Keluar</button>
+</div>
+<div class="container">
+ <div id="teacherDashboard" class="card dashboard">
+  <h2>👩‍🏫 Dashboard Guru</h2>
+  <p>Guru dapat mengubah isi setiap tab pembelajaran. Pilih tab, edit langsung bagian yang disorot, lalu simpan.</p>
+  <div class="edit-tools">
+   <button class="btn secondary" onclick="editSection('tujuan')">Edit Tujuan</button>
+   <button class="btn secondary" onclick="editSection('materi')">Edit Materi</button>
+   <button class="btn secondary" onclick="editSection('kasus')">Edit Studi Kasus</button>
+   <button class="btn secondary" onclick="editSection('kuis')">Edit Kuis</button>
+   <button class="btn secondary" onclick="editSection('refleksi')">Edit Refleksi</button>
+  </div>
+  <div class="edit-tools">
+   <button class="btn" onclick="saveSectionEdit()">💾 Simpan Perubahan Tab</button>
+   <button class="btn secondary" onclick="cancelSectionEdit()">Batal Edit</button>
+   <button class="btn secondary" onclick="resetSectionEdit()">Pulihkan Tab ke Versi Awal</button>
+  </div>
+  <div id="teacherEditStatus" class="feedback"></div>
+  <hr>
+  <h3>📊 Rekap Skor Kuis Murid pada Perangkat Ini</h3>
+  <p class="small">Rekap berasal dari hasil kuis yang tersimpan di browser/perangkat yang sama.</p>
+  <div id="teacherScoreHistory"></div>
+ </div>
+ <div id="studentDashboard" class="card dashboard student-score-card">
+  <h2>🎒 Dashboard Murid</h2>
+  <p id="studentWelcome">Selamat belajar!</p>
+  <div class="grid">
+   <div class="icon-card"><b>Skor terakhir</b><div id="studentLatestScore" class="score">—</div><p class="small">Hasil kuis terbaru</p></div>
+   <div class="icon-card"><b>Jumlah percobaan</b><div id="studentAttempts" class="score">0</div><p class="small">Kuis yang telah diperiksa</p></div>
+   <div class="icon-card"><b>Skor terbaik</b><div id="studentBestScore" class="score">—</div><p class="small">Nilai tertinggi</p></div>
+  </div>
+  <p id="studentScoreAdvice" class="tip">Kerjakan kuis pada tab 📝 Kuis untuk melihat skor di sini.</p>
+  <h3>📚 Laporan Belajar Saya</h3>
+  <p class="small">Riwayat nilai, waktu pengerjaan, dan evaluasi jawaban kuis yang pernah dikerjakan.</p>
+  <div id="studentLearningReport"><p class="small">Belum ada laporan. Selesaikan kuis terlebih dahulu.</p></div>
+  <button class="btn" onclick="go('kuis')">📝 Mulai / Lanjutkan Kuis</button>
+ </div>
+</div>
+
+<nav>
+ <div class="container nav-inner">
+  <button onclick="go('tujuan')">🎯 Tujuan</button>
+  <button onclick="go('materi')">📖 Materi</button>
+  <button onclick="go('kasus')">🧩 Studi Kasus</button>
+  <button onclick="go('kuis')">📝 Kuis</button>
+  <button onclick="go('refleksi')">💭 Refleksi</button>
+  <button onclick="go('lkm')">📄 LKM</button>
+ </div>
+</nav>
+
+<main class="container">
+
+<section id="tujuan">
+ <div class="section-title"><span>🎯</span><h2>Tujuan Pembelajaran</h2></div>
+ <div class="grid">
+  <div class="icon-card"><div class="icon">🧠</div><b>Memahami</b><p>Menjelaskan pengertian iman dan kaitannya dengan kehidupan seorang muslim.</p></div>
+  <div class="icon-card"><div class="icon">❤️</div><b>Menghayati</b><p>Menyadari bahwa iman mendorong sikap jujur, amanah, disiplin, dan bertanggung jawab.</p></div>
+  <div class="icon-card"><div class="icon">🤝</div><b>Menerapkan</b><p>Memilih tindakan yang sesuai dengan nilai iman dalam masalah sehari-hari.</p></div>
+ </div>
+</section>
+
+<section id="materi">
+ <div class="section-title"><span>📖</span><h2>Materi Inti</h2></div>
+ <div class="card">
+  <h3>1. Apa itu iman?</h3>
+  <p>Secara sederhana, <b>iman</b> adalah keyakinan dalam hati yang dibenarkan dengan ucapan dan diwujudkan dalam perbuatan. Iman tidak hanya berhenti pada pengetahuan, tetapi terlihat dalam sikap dan perilaku.</p>
+  <div class="tip"><b>Ingat:</b> Iman menjadi dasar dalam menentukan apa yang kita pikirkan, katakan, dan lakukan.</div>
+ </div>
+ <div class="grid">
+  <div class="icon-card"><div class="icon">🌙</div><b>Iman kepada Allah</b><p>Meyakini Allah sebagai Tuhan dan berusaha menaati perintah-Nya serta menjauhi larangan-Nya.</p></div>
+  <div class="icon-card"><div class="icon">🧭</div><b>Iman sebagai pedoman</b><p>Iman membantu seorang muslim menentukan sikap ketika menghadapi pilihan dan godaan.</p></div>
+  <div class="icon-card"><div class="icon">🌱</div><b>Iman dan akhlak</b><p>Keimanan tercermin melalui perilaku baik, seperti jujur, amanah, sabar, dan menghormati orang lain.</p></div>
+ </div>
+ <div class="card">
+  <h3>2. Enam rukun iman</h3>
+  <ol>
+   <li>Iman kepada Allah</li><li>Iman kepada malaikat Allah</li><li>Iman kepada kitab-kitab Allah</li>
+   <li>Iman kepada rasul-rasul Allah</li><li>Iman kepada hari akhir</li><li>Iman kepada qada dan qadar</li>
+  </ol>
+ </div>
+</section>
+
+<section id="kasus">
+ <div class="section-title"><span>🧩</span><h2>Studi Kasus: “Kalau Tidak Ada yang Tahu?”</h2></div>
+ <div class="card case">
+  <h3>Masalah yang sering terjadi di kelas</h3>
+  <p>Guru sedang memberikan kuis. Temanmu menawarkan jawaban melalui pesan pribadi karena ia sudah melihat kunci jawaban. Guru tidak mengetahui hal itu. Kamu juga takut nilaimu rendah jika mengerjakan sendiri.</p>
+  <p><b>Menurutmu, tindakan mana yang paling mencerminkan iman?</b></p>
+  <button class="choice" onclick="caseAnswer(this,false)">A. Menerima jawaban agar nilai tetap tinggi.</button>
+  <button class="choice" onclick="caseAnswer(this,true)">B. Menolak dengan baik dan mengerjakan sesuai kemampuan sendiri.</button>
+  <button class="choice" onclick="caseAnswer(this,false)">C. Menerima jawaban, tetapi hanya beberapa nomor.</button>
+  <button class="choice" onclick="caseAnswer(this,false)">D. Membagikan jawaban kepada teman lain agar adil.</button>
+  <div id="caseFeedback" class="feedback"></div>
+ </div>
+
+ <div class="card">
+  <h3>🗣️ Tantangan “Pilih Sikap”</h3>
+  <p>Bayangkan kamu mengalami salah satu situasi berikut. Klik respons yang menurutmu paling sesuai dengan nilai iman.</p>
+  <div class="question">
+   <b>1. Temanmu diejek di grup kelas.</b>
+   <button class="choice mini" onclick="mini(this,true)">Mengingatkan agar berhenti dan tidak ikut menyebarkan ejekan.</button>
+   <button class="choice mini" onclick="mini(this,false)">Ikut memberi komentar agar dianggap seru.</button>
+   <button class="choice mini" onclick="mini(this,false)">Menyimpan tangkapan layar untuk bahan ejekan berikutnya.</button>
+   <div class="feedback"></div>
+  </div>
+  <div class="question">
+   <b>2. Kamu menemukan uang di bawah meja kelas.</b>
+   <button class="choice mini" onclick="mini(this,true)">Mengamankan dan menyerahkannya kepada guru/pemiliknya.</button>
+   <button class="choice mini" onclick="mini(this,false)">Menyimpannya karena tidak ada yang melihat.</button>
+   <button class="choice mini" onclick="mini(this,false)">Membaginya dengan teman.</button>
+   <div class="feedback"></div>
+  </div>
+ </div>
+</section>
+
+<section id="kuis">
+ <div class="section-title"><span>📝</span><h2>Kuis Cepat</h2></div>
+ <div class="card">
+  <p class="small">Jawab semua pertanyaan. Skor akan muncul otomatis setelah tombol diperiksa ditekan.</p>
+  <div class="progress-wrap"><div id="progress" class="progress"></div></div>
+
+  <div class="question q" data-answer="B">
+   <h3>1. Iman dalam kehidupan seorang muslim seharusnya...</h3>
+   <button class="choice quiz" data-value="A">A. Hanya diketahui sebagai teori.</button>
+   <button class="choice quiz" data-value="B">B. Menjadi dasar keyakinan dan tercermin dalam perilaku.</button>
+   <button class="choice quiz" data-value="C">C. Digunakan ketika sedang beribadah saja.</button>
+   <button class="choice quiz" data-value="D">D. Tidak berkaitan dengan hubungan sosial.</button>
+  </div>
+
+  <div class="question q" data-answer="C">
+   <h3>2. Ketika tidak ada orang yang melihat, seorang yang beriman tetap berusaha jujur karena...</h3>
+   <button class="choice quiz" data-value="A">A. Takut dimarahi teman.</button>
+   <button class="choice quiz" data-value="B">B. Ingin mendapatkan hadiah.</button>
+   <button class="choice quiz" data-value="C">C. Meyakini Allah mengetahui perbuatannya.</button>
+   <button class="choice quiz" data-value="D">D. Agar selalu dipuji.</button>
+  </div>
+
+  <div class="question q" data-answer="A">
+   <h3>3. Berikut yang menunjukkan iman memengaruhi akhlak adalah...</h3>
+   <button class="choice quiz" data-value="A">A. Mengembalikan barang yang bukan miliknya.</button>
+   <button class="choice quiz" data-value="B">B. Menyontek saat guru tidak melihat.</button>
+   <button class="choice quiz" data-value="C">C. Menghina teman yang berbeda pendapat.</button>
+   <button class="choice quiz" data-value="D">D. Menyebarkan rahasia teman.</button>
+  </div>
+
+  <div class="question q" data-answer="D">
+   <h3>4. Jumlah rukun iman adalah...</h3>
+   <button class="choice quiz" data-value="A">A. 4</button>
+   <button class="choice quiz" data-value="B">B. 5</button>
+   <button class="choice quiz" data-value="C">C. 7</button>
+   <button class="choice quiz" data-value="D">D. 6</button>
+  </div>
+
+  <div class="question q" data-answer="B">
+   <h3>5. Sikap yang tepat ketika mendapat ajakan menyontek adalah...</h3>
+   <button class="choice quiz" data-value="A">A. Menerima supaya tidak dianggap pelit.</button>
+   <button class="choice quiz" data-value="B">B. Menolak dengan baik dan mengerjakan sendiri.</button>
+   <button class="choice quiz" data-value="C">C. Menyontek sedikit saja.</button>
+   <button class="choice quiz" data-value="D">D. Menyuruh orang lain menyontek.</button>
+  </div>
+
+  <button class="btn" onclick="checkQuiz()">Periksa Jawaban</button>
+  <button class="btn secondary" onclick="resetQuiz()">Ulangi Kuis</button>
+ </div>
+
+ <div id="result" class="card result">
+  <div class="score" id="score"></div>
+  <h3 id="scoreMessage"></h3>
+  <p id="scoreAdvice"></p>
+  <h3>🔎 Evaluasi Jawaban</h3>
+  <p class="small">Periksa jawabanmu, kunci jawaban, dan alasan untuk setiap nomor.</p>
+  <div id="quizEvaluation"></div>
+ </div>
+</section>
+
+<section id="refleksi">
+ <div class="section-title"><span>💭</span><h2>Refleksi Diri</h2></div>
+ <div class="card">
+  <p><b>Lengkapi refleksi berikut secara jujur.</b> Jawaban ini tidak dikirim ke guru; tersimpan hanya di perangkatmu selama halaman ini digunakan.</p>
+  <label>Nama panggilan (opsional)</label>
+  <input id="studentName" type="text" placeholder="Contoh: Ahmad">
+  <br><br>
+  <label>1. Perilaku apa yang ingin saya perbaiki agar iman saya lebih terlihat dalam kehidupan sehari-hari?</label>
+  <textarea id="reflection1" placeholder="Tulis jawabanmu..."></textarea>
+  <br>
+  <label>2. Satu tindakan nyata yang akan saya lakukan minggu ini adalah...</label>
+  <textarea id="reflection2" placeholder="Tulis komitmenmu..."></textarea>
+  <br>
+  <button class="btn" onclick="saveReflection()">💾 Simpan Refleksi</button>
+  <button class="btn secondary" onclick="clearReflection()">Hapus Isian</button>
+  <div id="saveMsg" class="feedback"></div>
+ </div>
+
+ <div class="card checklist">
+  <h3>🌱 Tantangan 7 Hari</h3>
+  <p class="small">Centang kebiasaan yang berhasil kamu lakukan. Data tersimpan di perangkat.</p>
+  <label><input type="checkbox" class="habit"> Saya berkata jujur hari ini.</label>
+  <label><input type="checkbox" class="habit"> Saya menjaga amanah/tanggung jawab.</label>
+  <label><input type="checkbox" class="habit"> Saya menghindari mengejek atau merendahkan teman.</label>
+  <label><input type="checkbox" class="habit"> Saya berusaha disiplin dalam belajar.</label>
+  <label><input type="checkbox" class="habit"> Saya mengingat Allah sebelum mengambil keputusan penting.</label>
+ </div>
+</section>
+
+
+<section id="lkm">
+ <div class="section-title"><span>📄</span><h2>Lembar Kerja Murid (LKM)</h2></div>
+ <div class="card lkm-intro">
+  <h3>Petunjuk Pengerjaan</h3>
+  <p>Menu ini memuat LKM 1, LKM 2, dan LKM 3 sesuai Lampiran 2 pada RPM “Iman sebagai Dasar Kehidupan Seorang Muslim”. Jawablah dengan bahasamu sendiri dan gunakan contoh dari kehidupan di sekolah, rumah, atau media sosial.</p>
+  <p class="small">Isi dapat diketik langsung. Gunakan tombol “Cetak / Simpan PDF” untuk mencetak atau menyimpan lembar kerja sebagai PDF melalui menu cetak peramban.</p>
+  <div class="lkm-grid">
+   <div class="lkm-field"><label>Nama murid</label><input type="text" id="lkmNama" placeholder="Nama lengkap"></div>
+   <div class="lkm-field"><label>Kelas</label><input type="text" id="lkmKelas" placeholder="Contoh: VII A"></div>
+   <div class="lkm-field"><label>Kelompok (jika ada)</label><input type="text" id="lkmKelompok" placeholder="Nama/nomor kelompok"></div>
+   <div class="lkm-field"><label>Hari, tanggal</label><input type="text" id="lkmTanggal" placeholder="Hari, tanggal pengerjaan"></div>
+  </div>
+ </div>
+
+ <div class="card">
+  <h2>LKM 1: Peta Konsep Iman</h2>
+  <p class="lkm-note">Kerja kelompok • 10 menit. Bacalah tab Materi dan bahan ajar. Isi dengan bahasamu sendiri, bukan menyalin kalimat buku.</p>
+  <div class="lkm-block">
+   <h3>Bagian A. Tiga unsur iman</h3>
+   <div class="lkm-table-wrap"><table class="lkm-table">
+    <thead><tr><th>Unsur iman</th><th>Artinya menurut kami</th><th>Contoh nyata</th></tr></thead>
+    <tbody>
+     <tr><td><b>Tasdiq bil qalb</b><br>(hati)</td><td><textarea id="lkm1a1" aria-label="Arti tasdiq bil qalb"></textarea></td><td><textarea id="lkm1a2" aria-label="Contoh tasdiq bil qalb"></textarea></td></tr>
+     <tr><td><b>Iqrar bil lisan</b><br>(ucapan)</td><td><textarea id="lkm1b1" aria-label="Arti iqrar bil lisan"></textarea></td><td><textarea id="lkm1b2" aria-label="Contoh iqrar bil lisan"></textarea></td></tr>
+     <tr><td><b>Amal bil arkan</b><br>(perbuatan)</td><td><textarea id="lkm1c1" aria-label="Arti amal bil arkan"></textarea></td><td><textarea id="lkm1c2" aria-label="Contoh amal bil arkan"></textarea></td></tr>
+    </tbody>
+   </table></div>
+  </div>
+  <div class="lkm-block">
+   <h3>Bagian B. Enam rukun iman dan wujud sikapku</h3>
+   <div class="lkm-table-wrap"><table class="lkm-table">
+    <thead><tr><th>No.</th><th>Rukun iman</th><th>Sikap nyata yang dapat kami lakukan (di sekolah/rumah/media sosial)</th></tr></thead>
+    <tbody>
+     <tr><td>1</td><td>Iman kepada Allah</td><td><textarea id="lkm1r1" placeholder="Contoh: tetap mengerjakan kuis sendiri..."></textarea></td></tr>
+     <tr><td>2</td><td>Iman kepada malaikat</td><td><textarea id="lkm1r2"></textarea></td></tr>
+     <tr><td>3</td><td>Iman kepada kitab-kitab</td><td><textarea id="lkm1r3"></textarea></td></tr>
+     <tr><td>4</td><td>Iman kepada rasul</td><td><textarea id="lkm1r4"></textarea></td></tr>
+     <tr><td>5</td><td>Iman kepada hari akhir</td><td><textarea id="lkm1r5"></textarea></td></tr>
+     <tr><td>6</td><td>Iman kepada qada dan qadar</td><td><textarea id="lkm1r6"></textarea></td></tr>
+    </tbody>
+   </table></div>
+  </div>
+  <div class="lkm-block">
+   <h3>Bagian C. Kesimpulan kelompok</h3>
+   <div class="lkm-field"><label>Iman adalah …</label><textarea id="lkm1kesimpulan1"></textarea></div>
+   <div class="lkm-field"><label>… dan terlihat dari …</label><textarea id="lkm1kesimpulan2"></textarea></div>
+  </div>
+ </div>
+
+ <div class="card">
+  <h2>LKM 2: Analisis Studi Kasus “Kalau Tidak Ada yang Tahu?”</h2>
+  <p class="lkm-note">Individu dan kelompok • 30 menit.</p>
+  <div class="lkm-block">
+   <h3>Kasus</h3>
+   <p>Guru sedang memberikan kuis. Temanmu menawarkan jawaban melalui pesan pribadi karena ia sudah melihat kunci jawaban. Guru tidak mengetahui hal itu. Kamu juga takut nilaimu rendah jika mengerjakan sendiri.</p>
+   <h3>Bagian A. Pilihan awalku</h3>
+   <p>Isi sebelum menekan jawaban pada media.</p>
+   <div class="lkm-field"><label>Pilihanku</label><select id="lkm2pilihan"><option value="">Pilih A/B/C/D</option><option>A</option><option>B</option><option>C</option><option>D</option></select></div>
+   <div class="lkm-field"><label>Alasanku</label><textarea id="lkm2alasan"></textarea></div>
+  </div>
+  <div class="lkm-block">
+   <h3>Bagian B. Analisis kelompok: Jeda – Ingat – Pilih – Lakukan</h3>
+   <div class="lkm-field"><label>1. Jeda — Apa masalahnya? Siapa saja yang terlibat? Godaan apa yang muncul?</label><textarea id="lkm2jeda"></textarea></div>
+   <div class="lkm-field"><label>2. Ingat — Nilai iman apa yang diuji? Rukun iman atau dalil apa yang mendasari?</label><textarea id="lkm2ingat"></textarea></div>
+   <div class="lkm-field"><label>3. Pilih — Tuliskan tiga pilihan sikap beserta akibatnya bagi diri, teman, guru, dan hubungan dengan Allah.</label></div>
+   <div class="lkm-grid">
+    <div class="lkm-field"><label>Pilihan 1</label><textarea id="lkm2p1"></textarea></div><div class="lkm-field"><label>Akibat pilihan 1</label><textarea id="lkm2a1"></textarea></div>
+    <div class="lkm-field"><label>Pilihan 2</label><textarea id="lkm2p2"></textarea></div><div class="lkm-field"><label>Akibat pilihan 2</label><textarea id="lkm2a2"></textarea></div>
+    <div class="lkm-field"><label>Pilihan 3</label><textarea id="lkm2p3"></textarea></div><div class="lkm-field"><label>Akibat pilihan 3</label><textarea id="lkm2a3"></textarea></div>
+   </div>
+   <div class="lkm-field"><label>4. Lakukan — Tulis kalimat menolak ajakan menyontek dengan santun, tegas, dan menawarkan alternatif.</label><textarea id="lkm2lakukan" placeholder="Contoh awal: Terima kasih, tetapi aku akan mengerjakan sendiri..."></textarea></div>
+  </div>
+  <div class="lkm-block">
+   <h3>Bagian C. Tantangan “Pilih Sikap”</h3>
+   <div class="lkm-field"><label>Situasi 1: Temanmu diejek di grup kelas. Sikap yang kami pilih</label><textarea id="lkm2sikap1"></textarea></div>
+   <div class="lkm-field"><label>Alasan berdasarkan iman</label><textarea id="lkm2dasar1"></textarea></div>
+   <div class="lkm-field"><label>Situasi 2: Kamu menemukan uang di bawah meja kelas. Sikap yang kami pilih</label><textarea id="lkm2sikap2"></textarea></div>
+   <div class="lkm-field"><label>Alasan berdasarkan iman</label><textarea id="lkm2dasar2"></textarea></div>
+  </div>
+  <div class="lkm-block">
+   <h3>Bagian D. Pertimbangan akhirku (individu)</h3>
+   <p>Tulis 4–5 kalimat: Jika aku menghadapi kasus ini di sekolah, aku akan … karena … Sikap ini menunjukkan imanku kepada … Akibat baiknya adalah …</p>
+   <div class="lkm-field"><label>Jawaban akhir (4–5 kalimat)</label><textarea id="lkm2akhir"></textarea></div>
+  </div>
+ </div>
+
+ <div class="card">
+  <h2>LKM 3: Refleksi dan Rencana Aksi Iman 7 Hari</h2>
+  <p class="lkm-note">Individu • dilaksanakan dan dipantau selama 7 hari.</p>
+  <div class="lkm-block">
+   <h3>Bagian A. Refleksi (isi dengan jujur)</h3>
+   <div class="lkm-field"><label>1. Perilaku apa yang ingin saya perbaiki agar iman saya lebih terlihat dalam kehidupan sehari-hari?</label><textarea id="lkm3ref1"></textarea></div>
+   <div class="lkm-field"><label>2. Satu tindakan nyata yang akan saya lakukan minggu ini adalah …</label><textarea id="lkm3ref2"></textarea></div>
+   <div class="lkm-field"><label>3. Hal yang saya pahami dan rasakan hari ini</label><textarea id="lkm3ref3"></textarea></div>
+  </div>
+  <div class="lkm-block">
+   <h3>Bagian B. Rencana aksi</h3>
+   <div class="lkm-table-wrap"><table class="lkm-table">
+    <thead><tr><th>Aksi nyata (spesifik)</th><th>Kapan dan di mana</th><th>Hambatan yang mungkin muncul</th><th>Cara mengatasi / siapa yang membantu</th></tr></thead>
+    <tbody><tr><td><textarea id="lkm3aksi"></textarea></td><td><textarea id="lkm3waktu"></textarea></td><td><textarea id="lkm3hambatan"></textarea></td><td><textarea id="lkm3bantuan"></textarea></td></tr></tbody>
+   </table></div>
+   <div class="lkm-field"><label>Aksi ini adalah wujud imanku kepada … karena …</label><textarea id="lkm3wujud"></textarea></div>
+  </div>
+  <div class="lkm-block">
+   <h3>Bagian C. Pemantauan Tantangan 7 Hari</h3>
+   <p>Centang ✓ bila berhasil melakukan kebiasaan pada hari tersebut.</p>
+   <div class="lkm-table-wrap"><table class="lkm-table">
+    <thead><tr><th>Kebiasaan</th><th>Hari 1</th><th>Hari 2</th><th>Hari 3</th><th>Hari 4</th><th>Hari 5</th><th>Hari 6</th><th>Hari 7</th></tr></thead>
+    <tbody>
+     <tr><td>Saya berkata jujur hari ini.</td><td><input type="checkbox" aria-label="Jujur hari 1"></td><td><input type="checkbox" aria-label="Jujur hari 2"></td><td><input type="checkbox" aria-label="Jujur hari 3"></td><td><input type="checkbox" aria-label="Jujur hari 4"></td><td><input type="checkbox" aria-label="Jujur hari 5"></td><td><input type="checkbox" aria-label="Jujur hari 6"></td><td><input type="checkbox" aria-label="Jujur hari 7"></td></tr>
+     <tr><td>Saya menjaga amanah/tanggung jawab.</td><td><input type="checkbox" aria-label="Amanah hari 1"></td><td><input type="checkbox" aria-label="Amanah hari 2"></td><td><input type="checkbox" aria-label="Amanah hari 3"></td><td><input type="checkbox" aria-label="Amanah hari 4"></td><td><input type="checkbox" aria-label="Amanah hari 5"></td><td><input type="checkbox" aria-label="Amanah hari 6"></td><td><input type="checkbox" aria-label="Amanah hari 7"></td></tr>
+     <tr><td>Saya menghindari mengejek atau merendahkan teman.</td><td><input type="checkbox" aria-label="Tidak mengejek hari 1"></td><td><input type="checkbox" aria-label="Tidak mengejek hari 2"></td><td><input type="checkbox" aria-label="Tidak mengejek hari 3"></td><td><input type="checkbox" aria-label="Tidak mengejek hari 4"></td><td><input type="checkbox" aria-label="Tidak mengejek hari 5"></td><td><input type="checkbox" aria-label="Tidak mengejek hari 6"></td><td><input type="checkbox" aria-label="Tidak mengejek hari 7"></td></tr>
+     <tr><td>Saya berusaha disiplin dalam belajar.</td><td><input type="checkbox" aria-label="Disiplin hari 1"></td><td><input type="checkbox" aria-label="Disiplin hari 2"></td><td><input type="checkbox" aria-label="Disiplin hari 3"></td><td><input type="checkbox" aria-label="Disiplin hari 4"></td><td><input type="checkbox" aria-label="Disiplin hari 5"></td><td><input type="checkbox" aria-label="Disiplin hari 6"></td><td><input type="checkbox" aria-label="Disiplin hari 7"></td></tr>
+     <tr><td>Saya mengingat Allah sebelum mengambil keputusan penting.</td><td><input type="checkbox" aria-label="Mengingat Allah hari 1"></td><td><input type="checkbox" aria-label="Mengingat Allah hari 2"></td><td><input type="checkbox" aria-label="Mengingat Allah hari 3"></td><td><input type="checkbox" aria-label="Mengingat Allah hari 4"></td><td><input type="checkbox" aria-label="Mengingat Allah hari 5"></td><td><input type="checkbox" aria-label="Mengingat Allah hari 6"></td><td><input type="checkbox" aria-label="Mengingat Allah hari 7"></td></tr>
+    </tbody>
+   </table></div>
+  </div>
+  <div class="lkm-block">
+   <h3>Bagian D. Pendamping</h3>
+   <div class="lkm-field"><label>Komentar orang tua/wali</label><textarea id="lkm3komentar"></textarea></div>
+   <div class="lkm-grid"><div class="lkm-field"><label>Paraf orang tua/wali</label><input type="text" id="lkm3paraf"></div><div class="lkm-field"><label>Tanggal</label><input type="text" id="lkm3tanggal"></div></div>
+   <p><b>Pernyataan murid:</b> Saya mengisi lembar ini dengan jujur.</p>
+   <div class="lkm-field"><label>Tanda tangan murid</label><input type="text" id="lkm3ttd"></div>
+  </div>
+ </div>
+ <div class="lkm-actions">
+  <button class="btn" onclick="saveLKM()">💾 Simpan Jawaban LKM</button>
+  <button class="btn secondary" onclick="loadLKM()">↻ Muat Jawaban Tersimpan</button>
+  <button class="btn secondary" onclick="printLKM()">🖨️ Cetak / Simpan PDF</button>
+  <button class="btn secondary" onclick="clearLKM()">Hapus Isian LKM</button>
+ </div>
+ <div id="lkmStatus" class="feedback"></div>
+</section>
+
+<section>
+ <div class="card">
+  <h3>👩‍🏫 Catatan untuk Guru</h3>
+  <p>Aplikasi ini dirancang sebagai media pembelajaran digital sederhana. Guru dapat menggunakannya untuk apersepsi, diskusi studi kasus, asesmen formatif, dan refleksi. Pertanyaan dapat dikembangkan sesuai konteks kelas dan karakter peserta didik.</p>
+  <p class="small">Saran penggunaan: 10 menit materi → 10 menit studi kasus → 10 menit kuis → 5 menit refleksi.</p>
+ </div>
+</section>
+
+</main>
+
+<footer>
+ <div class="container">
+  <b>PAI Kelas VII — Iman sebagai Dasar Kehidupan Seorang Muslim</b>
+  <div class="small">Dibuat sebagai media pembelajaran interaktif HTML • dapat digunakan secara offline</div>
+ </div>
+</footer>
+
+<script>
+
+const ORIGINAL_SECTIONS={};
+let activeEditSection=null;
+let loginRole='guru';
+function switchLogin(role){
+ loginRole=role;
+ document.getElementById('teacherLogin').style.display=role==='guru'?'block':'none';
+ document.getElementById('studentLogin').style.display=role==='murid'?'block':'none';
+ document.getElementById('teacherTab').classList.toggle('active',role==='guru');
+ document.getElementById('studentTab').classList.toggle('active',role==='murid');
+ document.getElementById('authMsg').textContent='';
+}
+function login(){
+ const msg=document.getElementById('authMsg');
+ if(loginRole==='guru'){
+  const u=document.getElementById('teacherUser').value.trim();
+  const p=document.getElementById('teacherPass').value;
+  if(u!=='guru'||p!=='guru123'){msg.textContent='Nama pengguna atau kata sandi salah.';return;}
+  localStorage.setItem('paiCurrentUser',JSON.stringify({role:'guru',name:'Guru'}));
+ }else{
+  const name=document.getElementById('studentLoginName').value.trim();
+  const kelas=document.getElementById('studentClass').value.trim();
+  if(!name||!kelas){msg.textContent='Isi nama murid dan kelas terlebih dahulu.';return;}
+  localStorage.setItem('paiCurrentUser',JSON.stringify({role:'murid',name,kelas}));
+ }
+ // Bersihkan pilihan dan tampilan evaluasi dari sesi sebelumnya tanpa menghapus riwayat nilai.
+ resetQuiz();
+ document.getElementById('quizEvaluation').innerHTML='';
+ document.getElementById('score').textContent='';
+ document.getElementById('scoreMessage').textContent='';
+ document.getElementById('scoreAdvice').textContent='';
+ document.getElementById('authScreen').style.display='none';
+ applyUser();
+}
+function logout(){
+ // Pastikan jawaban yang terlihat tidak terbawa ke pengguna berikutnya.
+ resetQuiz();
+ document.getElementById('quizEvaluation').innerHTML='';
+ document.getElementById('score').textContent='';
+ document.getElementById('scoreMessage').textContent='';
+ document.getElementById('scoreAdvice').textContent='';
+ localStorage.removeItem('paiCurrentUser');
+ document.getElementById('authScreen').style.display='flex';
+ document.getElementById('teacherPass').value='';
+ document.getElementById('authMsg').textContent='';
+ document.getElementById('teacherDashboard').classList.remove('show');
+ document.getElementById('studentDashboard').classList.remove('show');
+}
+function applyUser(){
+ let user=null;try{user=JSON.parse(localStorage.getItem('paiCurrentUser')||'null')}catch(e){}
+ if(!user){document.getElementById('authScreen').style.display='flex';return;}
+ document.getElementById('authScreen').style.display='none';
+ document.getElementById('welcomeLabel').textContent=user.role==='guru'?'Masuk sebagai Guru':'Murid: '+user.name+' • '+user.kelas;
+ document.getElementById('teacherDashBtn').style.display=user.role==='guru'?'inline-block':'none';
+ document.getElementById('studentDashBtn').style.display=user.role==='murid'?'inline-block':'none';
+ document.getElementById('logoutBtn').style.display='inline-block';
+ document.getElementById('teacherDashboard').classList.remove('show');
+ document.getElementById('studentDashboard').classList.remove('show');
+ if(user.role==='guru'){renderTeacherScores();showDashboard('guru');}
+ else {showDashboard('murid');}
+}
+function showDashboard(role){
+ document.getElementById('teacherDashboard').classList.toggle('show',role==='guru');
+ document.getElementById('studentDashboard').classList.toggle('show',role==='murid');
+ if(role==='guru')renderTeacherScores();else renderStudentScores();
+}
+function editSection(id){
+ if(activeEditSection) cancelSectionEdit();
+ const sec=document.getElementById(id);
+ if(!sec)return;
+ activeEditSection=id;
+ sec.classList.add('editing');
+ sec.contentEditable='true';
+ sec.focus();
+ const status=document.getElementById('teacherEditStatus');
+ status.textContent='Mode edit aktif: ubah teks pada tab "'+id+'", kemudian tekan Simpan Perubahan Tab.';
+ status.classList.add('show');
+ sec.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function saveSectionEdit(){
+ if(!activeEditSection){showEditStatus('Pilih salah satu tab untuk diedit terlebih dahulu.');return;}
+ const sec=document.getElementById(activeEditSection);
+ sec.contentEditable='false';sec.classList.remove('editing');
+ localStorage.setItem('paiSection_'+activeEditSection,sec.innerHTML);
+ showEditStatus('Perubahan pada tab "'+activeEditSection+'" berhasil disimpan di browser ini.');
+ activeEditSection=null;
+}
+function cancelSectionEdit(){
+ if(!activeEditSection)return;
+ const sec=document.getElementById(activeEditSection);
+ sec.contentEditable='false';sec.classList.remove('editing');
+ const saved=localStorage.getItem('paiSection_'+activeEditSection);
+ if(saved!==null)sec.innerHTML=saved;
+ else if(ORIGINAL_SECTIONS[activeEditSection]!==undefined)sec.innerHTML=ORIGINAL_SECTIONS[activeEditSection];
+ activeEditSection=null;showEditStatus('Edit dibatalkan.');
+}
+function resetSectionEdit(){
+ if(!activeEditSection){showEditStatus('Pilih tab yang ingin dipulihkan terlebih dahulu.');return;}
+ const id=activeEditSection;
+ if(!confirm('Pulihkan tab ini ke konten bawaan aplikasi?'))return;
+ localStorage.removeItem('paiSection_'+id);
+ location.reload();
+}
+function showEditStatus(text){
+ const el=document.getElementById('teacherEditStatus');el.textContent=text;el.classList.add('show');
+}
+function restoreEditedSections(){
+ ['tujuan','materi','kasus','kuis','refleksi'].forEach(id=>{
+  const sec=document.getElementById(id);if(!sec)return;
+  ORIGINAL_SECTIONS[id]=sec.innerHTML;
+  const saved=localStorage.getItem('paiSection_'+id);
+  if(saved!==null)sec.innerHTML=saved;
+ });
+}
+function scoreKey(){
+ let u=null;try{u=JSON.parse(localStorage.getItem('paiCurrentUser')||'null')}catch(e){}
+ return u&&u.role==='murid'?(u.name+'|'+u.kelas).toLowerCase():'';
+}
+function getScoreRecords(){
+ try{return JSON.parse(localStorage.getItem('paiScoreRecords')||'{}')}catch(e){return {}}
+}
+function renderStudentScores(){
+  let u=null;try{u=JSON.parse(localStorage.getItem('paiCurrentUser')||'null')}catch(e){}
+  if(!u||u.role!=='murid')return;
+  const records=getScoreRecords(), arr=records[(u.name+'|'+u.kelas).toLowerCase()]||[];
+  const last=arr[arr.length-1], best=arr.reduce((m,r)=>Math.max(m,r.pct),0);
+  document.getElementById('studentWelcome').textContent='Halo, '+u.name+' dari kelas '+u.kelas+'. Terus semangat belajar!';
+  document.getElementById('studentLatestScore').textContent=last?(last.score+'/5 ('+last.pct+'%)'):'—';
+  document.getElementById('studentAttempts').textContent=arr.length;
+  document.getElementById('studentBestScore').textContent=arr.length?(best+'%'):'—';
+  document.getElementById('studentScoreAdvice').textContent=!last?'Belum ada skor. Kerjakan kuis dan tekan Periksa Jawaban.':last.pct>=80?'Hebat! Pertahankan pemahaman dan perilaku baik dalam kehidupan sehari-hari.':last.pct>=60?'Cukup baik. Baca kembali materi yang belum dikuasai, lalu coba lagi.':'Ayo pelajari kembali materi dan ulangi kuis.';
+  const report=document.getElementById('studentLearningReport');
+  if(!arr.length){report.innerHTML='<p class="small">Belum ada laporan. Selesaikan kuis terlebih dahulu.</p>';return;}
+  report.innerHTML=arr.slice().reverse().map((r,idx)=>'<div class="question"><b>Laporan '+(arr.length-idx)+'</b><p>Waktu: '+new Date(r.date).toLocaleString('id-ID')+'</p><p><b>Hasil:</b> '+r.score+'/5 ('+r.pct+'%)</p><p>'+(r.pct>=80?'🌟 Sangat baik — pemahaman sudah kuat.':r.pct>=60?'👍 Cukup baik — pelajari kembali jawaban yang keliru.':'📘 Perlu belajar lagi — baca materi dan ulangi kuis.')+'</p>'+(r.details||[]).map((d,i)=>'<div class="tip"><b>Nomor '+(i+1)+': '+(d.correct?'Benar':'Perlu diperbaiki')+'</b><p>'+escapeHtml(d.question)+'</p><p>Jawabanmu: '+escapeHtml(d.selectedLabel||'Belum dijawab')+'</p><p>Kunci: '+escapeHtml(d.answerLabel)+'</p><p class="small">'+escapeHtml(d.explanation)+'</p></div>').join('')+'</div>').join('');
+}
+
+function renderTeacherScores(){
+ const records=getScoreRecords();let rows=[];
+ Object.keys(records).forEach(key=>(records[key]||[]).forEach(r=>rows.push({key,...r})));
+ rows.sort((a,b)=>new Date(b.date)-new Date(a.date));
+ const el=document.getElementById('teacherScoreHistory');if(!el)return;
+ if(!rows.length){el.innerHTML='<p class="small">Belum ada skor tersimpan. Murid perlu login pada perangkat ini dan mengerjakan kuis.</p>';return;}
+ el.innerHTML='<table class="score-history"><thead><tr><th>Nama / Kelas</th><th>Skor</th><th>Tanggal</th></tr></thead><tbody>'+
+ rows.map(r=>'<tr><td>'+escapeHtml(r.key.replace('|',' • '))+'</td><td>'+r.score+'/5 ('+r.pct+'%)</td><td>'+new Date(r.date).toLocaleString('id-ID')+'</td></tr>').join('')+
+ '</tbody></table>';
+}
+function escapeHtml(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+function go(id){document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'})}
+
+function caseAnswer(btn, correct){
+ document.querySelectorAll('#kasus .case .choice').forEach(b=>b.classList.remove('correct','wrong'));
+ btn.classList.add(correct?'correct':'wrong');
+ const f=document.getElementById('caseFeedback');
+ f.classList.add('show');
+ f.innerHTML=correct
+  ? '✅ <b>Tepat.</b> Menolak menyontek menunjukkan kejujuran dan tanggung jawab. Iman menjadi pedoman meskipun tidak ada orang yang melihat.'
+  : '💡 <b>Coba pikirkan lagi.</b> Nilai iman mendorong kita tetap jujur meskipun tidak ada yang mengetahui tindakan kita.';
+}
+
+function mini(btn, correct){
+ const box=btn.parentElement;
+ box.querySelectorAll('.choice').forEach(b=>b.classList.remove('correct','wrong'));
+ btn.classList.add(correct?'correct':'wrong');
+ const f=box.querySelector('.feedback');
+ f.classList.add('show');
+ f.innerHTML=correct ? '✅ Sikap ini mencerminkan akhlak yang baik dan nilai iman.' : '💡 Pertimbangkan dampak tindakanmu terhadap orang lain dan tanggung jawabmu di hadapan Allah.';
+}
+
+restoreEditedSections();
+document.querySelectorAll('.quiz').forEach(btn=>{
+ btn.addEventListener('click',()=>{
+  const q=btn.closest('.q');
+  q.querySelectorAll('.quiz').forEach(b=>b.classList.remove('correct','wrong'));
+  btn.classList.add('selected');
+  const total=document.querySelectorAll('.q').length;
+  const answered=document.querySelectorAll('.q .selected').length;
+  document.getElementById('progress').style.width=(answered/total*100)+'%';
+ });
+});
+
+function checkQuiz(){
+  let score=0, answered=0;const details=[];
+  const explanations=[
+   'Iman bukan hanya teori; keyakinan perlu tercermin dalam ucapan dan perilaku sehari-hari.',
+   'Keyakinan bahwa Allah mengetahui perbuatan manusia menjadi dorongan untuk tetap jujur meskipun tidak diawasi.',
+   'Mengembalikan barang yang bukan miliknya menunjukkan kejujuran dan amanah.',
+   'Rukun iman berjumlah enam: iman kepada Allah, malaikat, kitab, rasul, hari akhir, serta qada dan qadar.',
+   'Menolak menyontek dengan baik dan mengerjakan sendiri menunjukkan kejujuran serta tanggung jawab.'
+  ];
+  document.querySelectorAll('.q').forEach((q,i)=>{
+   const selected=q.querySelector('.selected');const answer=q.dataset.answer;
+   q.querySelectorAll('.quiz').forEach(b=>b.classList.remove('correct','wrong'));
+   const correct=!!selected&&selected.dataset.value===answer;
+   if(selected){answered++;selected.classList.add(correct?'correct':'wrong');if(correct)score++;if(!correct){const right=q.querySelector('[data-value="'+answer+'"]');if(right)right.classList.add('correct');}}
+   const answerBtn=q.querySelector('[data-value="'+answer+'"]');
+   details.push({question:q.querySelector('h3').textContent,selected:selected?selected.dataset.value:'',selectedLabel:selected?selected.textContent.replace(/^\s*[A-D]\.\s*/, '').trim():'Belum dijawab',answerLabel:answerBtn?answerBtn.textContent.replace(/^\s*[A-D]\.\s*/, '').trim():answer,correct,explanation:explanations[i]||'Pelajari kembali materi terkait pertanyaan ini.'});
+  });
+  const result=document.getElementById('result');result.classList.add('show');
+  const pct=Math.round(score/5*100);
+  document.getElementById('score').textContent='Skor: '+score+'/5 ('+pct+'%)';
+  let msg='', advice='';
+  if(pct>=80){msg='🌟 Sangat baik!';advice='Kamu sudah memahami hubungan antara iman dan perilaku. Pertahankan dan praktikkan dalam kehidupan sehari-hari.'}
+  else if(pct>=60){msg='👍 Cukup baik!';advice='Pemahamanmu sudah berkembang. Baca kembali bagian materi yang masih membingungkan dan coba kuis lagi.'}
+  else {msg='📚 Yuk belajar lagi!';advice='Tidak apa-apa salah. Pelajari kembali materi, terutama hubungan iman dengan kejujuran dan akhlak, lalu ulangi kuis.'}
+  document.getElementById('scoreMessage').textContent=msg;document.getElementById('scoreAdvice').textContent=advice;
+  document.getElementById('quizEvaluation').innerHTML=details.map((d,i)=>'<div class="question"><b>Nomor '+(i+1)+' — '+(d.correct?'✅ Benar':'📝 Perlu diperbaiki')+'</b><p>'+escapeHtml(d.question)+'</p><p>Jawabanmu: '+escapeHtml(d.selectedLabel)+'</p><p>Kunci jawaban: '+escapeHtml(d.answerLabel)+'</p><p class="small">Penjelasan: '+escapeHtml(d.explanation)+'</p></div>').join('');
+  result.scrollIntoView({behavior:'smooth',block:'center'});
+  const resultRecord={score,pct,date:new Date().toISOString(),details};
+  const key=scoreKey();
+  if(key){
+    // Simpan riwayat berdasarkan identitas murid, bukan pada satu kunci global.
+    localStorage.setItem('paiKuisScore_'+key,JSON.stringify(resultRecord));
+    const records=getScoreRecords();records[key]=records[key]||[];records[key].push(resultRecord);localStorage.setItem('paiScoreRecords',JSON.stringify(records));
+    renderStudentScores();renderTeacherScores();
+  }
+}
+
+function resetQuiz(){
+ document.querySelectorAll('.q').forEach(q=>{
+  q.querySelectorAll('.quiz').forEach(b=>b.classList.remove('selected','correct','wrong'));
+ });
+ document.getElementById('progress').style.width='0%';
+ document.getElementById('result').classList.remove('show');
+}
+
+function saveReflection(){
+ const data={
+  name:document.getElementById('studentName').value,
+  r1:document.getElementById('reflection1').value,
+  r2:document.getElementById('reflection2').value
+ };
+ localStorage.setItem('paiReflection',JSON.stringify(data));
+ const msg=document.getElementById('saveMsg');
+ msg.textContent='✅ Refleksi tersimpan di perangkat ini.';
+ msg.classList.add('show');
+}
+function clearReflection(){
+ ['studentName','reflection1','reflection2'].forEach(id=>document.getElementById(id).value='');
+ localStorage.removeItem('paiReflection');
+ document.querySelectorAll('.habit').forEach((h,i)=>{h.checked=false;localStorage.removeItem('paiHabit'+i)});
+}
+function loadData(){
+ try{
+  const d=JSON.parse(localStorage.getItem('paiReflection')||'null');
+  if(d){
+   document.getElementById('studentName').value=d.name||'';
+   document.getElementById('reflection1').value=d.r1||'';
+   document.getElementById('reflection2').value=d.r2||'';
+  }
+ }catch(e){}
+ document.querySelectorAll('.habit').forEach((h,i)=>{
+  h.checked=localStorage.getItem('paiHabit'+i)==='1';
+  h.addEventListener('change',()=>localStorage.setItem('paiHabit'+i,h.checked?'1':'0'));
+ });
+}
+loadData();
+applyUser();
+
+function lkmFields(){
+ return Array.from(document.querySelectorAll('#lkm input, #lkm textarea, #lkm select'));
+}
+function lkmStorageKey(){
+ const nama=(document.getElementById('lkmNama')?.value||'').trim().toLowerCase();
+ const kelas=(document.getElementById('lkmKelas')?.value||'').trim().toLowerCase();
+ return 'paiLKM_'+(nama||'murid')+'_'+(kelas||'kelas').replace(/\s+/g,'_');
+}
+function saveLKM(){
+ const data={};
+ lkmFields().forEach((el,i)=>{if(el.id)data[el.id]=el.type==='checkbox'?el.checked:el.value;});
+ try{localStorage.setItem(lkmStorageKey(),JSON.stringify(data));}
+ catch(e){showLKMStatus('Jawaban belum dapat disimpan pada perangkat ini. Silakan cetak atau salin jawaban.',true);return;}
+ showLKMStatus('Jawaban LKM berhasil disimpan pada browser/perangkat ini.');
+}
+function loadLKM(){
+ let data=null;
+ try{data=JSON.parse(localStorage.getItem(lkmStorageKey())||'null');}catch(e){}
+ if(!data){showLKMStatus('Belum ada jawaban tersimpan untuk nama dan kelas tersebut.',true);return;}
+ lkmFields().forEach(el=>{if(el.id && Object.prototype.hasOwnProperty.call(data,el.id)){if(el.type==='checkbox')el.checked=!!data[el.id];else el.value=data[el.id];}});
+ showLKMStatus('Jawaban tersimpan berhasil dimuat.');
+}
+function clearLKM(){
+ if(!confirm('Hapus seluruh isian LKM pada halaman ini?'))return;
+ lkmFields().forEach(el=>{if(el.type==='checkbox')el.checked=false;else el.value='';});
+ showLKMStatus('Isian LKM pada halaman telah dikosongkan.');
+}
+function printLKM(){window.print();}
+function showLKMStatus(message,error){
+ const el=document.getElementById('lkmStatus');if(!el)return;
+ el.textContent=message;el.classList.add('show');
+ el.style.borderLeft=error?'5px solid #d9534f':'5px solid var(--primary2)';
+}
+
+</script>
+</body>
+</html>
